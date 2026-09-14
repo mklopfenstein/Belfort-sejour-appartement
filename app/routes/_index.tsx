@@ -2,11 +2,22 @@ import type { MetaFunction } from '@remix-run/cloudflare';
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'Belfort Séjours | Luxury Airbnb Apartments' },
+    { title: 'Belfort Séjours | Appartements de vacances à Belfort' },
     {
       name: 'description',
-      content: 'Séjours premium à Belfort : Le Lion, La Citadelle Belfort et la formule 184m2 Belfort pour des vacances élégantes et confortables.',
+      content: 'Réservez un appartement de vacances à Belfort : Le Lion, La Citadelle Belfort et 184m2 Belfort. Séjours élégants, confortables et proches de la citadelle.',
     },
+    { tagName: 'link', rel: 'canonical', href: 'https://belfort-sejour-appartement.pages.dev/' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:locale', content: 'fr_FR' },
+    { property: 'og:title', content: 'Belfort Séjours | Appartements de vacances à Belfort' },
+    {
+      property: 'og:description',
+      content: 'Découvrez nos appartements premium à Belfort pour vos week-ends, vacances et séjours professionnels.',
+    },
+    { property: 'og:url', content: 'https://belfort-sejour-appartement.pages.dev/' },
+    { property: 'og:image', content: 'https://belfort-sejour-appartement.pages.dev/social_preview_index.jpg' },
+    { name: 'twitter:card', content: 'summary_large_image' },
   ];
 };
 
@@ -78,8 +89,30 @@ const gallery = [
 ];
 
 export default function Index() {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'LodgingBusiness',
+    name: 'Belfort Séjours',
+    description: 'Appartements de vacances premium à Belfort.',
+    url: 'https://belfort-sejour-appartement.pages.dev/',
+    image: gallery,
+    telephone: '+41763877851',
+    email: 'michelklopfenstein1@gmail.com',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Belfort',
+      addressCountry: 'FR',
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '3',
+    },
+  };
+
   return (
     <main className="min-h-screen bg-[#f7f3ee] text-slate-900">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <header className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#d97706] to-[#f5c987] text-lg font-bold text-white shadow-lg shadow-orange-200/60">
